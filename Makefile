@@ -8,7 +8,7 @@ CHANGELOGFILE := 'CHANGELOG.md'
 
 .PHONY: black
 black:   ##Apply code style black format
-	@poetry run black $(DIRECTORIES) && git commit -m "style: Applied Code style Black format automaticly at `date +"%F %T"`" . || echo
+	@poetry run black $(DIRECTORIES) && git commit -m "style: Applied Code style Black format automaticly at `date +"%FT%T%z"`" . || echo
 	@echo ">>>  Checked code style Black format automaticly  <<<"
 
 .PHONY: clean
@@ -97,7 +97,7 @@ install: setup  ## Install this package using poetry and all dependences
 
 .PHONY: isort
 isort:  ## isort apply
-	@poetry run isort --atomic --py all $(DIRECTORIES) && git commit -m "style: Applied Code style isort format automaticly at `date +%F@%T`" . || echo
+	@poetry run isort --atomic --py all $(DIRECTORIES) && git commit -m "style: Applied Code style isort format automaticly at `date +%FT%T%z`" . || echo
 	@echo ">>>  Checked code style isort format automaticly  <<<"
 
 .PHONY: lint
