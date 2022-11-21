@@ -1,10 +1,10 @@
 [tool.poetry]
-name = "incolume-py-fictus"
+name = "incolume.py.fictus"
 version = "0.1.0"
 description = ""
 authors = ["Britodfbr <britodfbr@gmail.com>"]
 readme = "README.md"
-packages = [{include = "incolume"}]
+packages = [{include = "incolume", from=""}]
 
 [tool.poetry.dependencies]
 python = "^3.8"
