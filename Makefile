@@ -25,3 +25,16 @@ clean:   ## Shallow clean into environment (.pyc, .cache, .egg, .log, et all)
 	@rm -fv cov.xml
 	@rm -rf docs/_build
 	@echo " finished!"
+
+.PHONY: clean-all
+clean-all: clean   ## Deep cleanning into environment (dist, build, htmlcov, .tox, *_cache, et all)
+	@echo "Starting Deep cleanning .."
+	@rm -rf dist
+	@rm -rf build
+	@rm -rf htmlcov
+	@rm -rf coverage_report
+	@rm -rf .tox
+	@find ./ \( -name "*_cache" -o -name '*cache__' \) -exec rm -rf {} 2> /dev/null \;
+	@#fuser -k 8000/tcp &> /dev/null
+	@poetry env list|awk '{print $$1}'|while read a; do poetry env remove $${a} 2> /dev/null && echo "$${a} removed."|| echo "$${a} not removed."; done
+	@echo "Deep cleaning finished!"
