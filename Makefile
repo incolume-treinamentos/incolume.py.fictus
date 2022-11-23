@@ -38,3 +38,9 @@ clean-all: clean   ## Deep cleanning into environment (dist, build, htmlcov, .to
 	@#fuser -k 8000/tcp &> /dev/null
 	@poetry env list|awk '{print $$1}'|while read a; do poetry env remove $${a} 2> /dev/null && echo "$${a} removed."|| echo "$${a} not removed."; done
 	@echo "Deep cleaning finished!"
+
+.PHONY: changelog
+changelog:   ## Update changelog file
+	@poetry run python -c "from incolumepy.utils import update_changelog; \
+	update_changelog($(CHANGELOGFILE), urlcompare=$(URLCOMPARE))"
+	@echo 'Atualização de CHANGESLOG realizada com sucesso.'
