@@ -1,10 +1,10 @@
 #!/bin/bash
 
 BRANCH=$(git rev-parse --abbrev-ref HEAD)
-REGEX="^((bug|bugfix|enhancement|feature|fix|refactor)#([0-9]+)|dev|tags|(enhancement/epoch#[0-9]{10,}))$"
+REGEX="^(dev|tags|(enhancement/epoch#[0-9]{10,}))$"
 
 if ! [[ $BRANCH =~ $REGEX ]]; then
   echo "Your commit was rejected due to branching name"
-  echo "Please rename your branch with '(enhancement|feature|bug|bugfix|fix)#id-issue' or 'enhancement/epoch#timestamp' syntax"
+  echo "Please rename your branch with 'enhancement/epoch#timestamp' syntax"
   exit 1
 fi
