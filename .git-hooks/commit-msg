@@ -1,3 +1,4 @@
 #!/bin/sh
-
+echo ""
 echo "Boa! continue trabalhando com dedicação."
+echo ""
