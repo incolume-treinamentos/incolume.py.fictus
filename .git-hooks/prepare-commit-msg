@@ -1,0 +1,19 @@
+#!/bin/bash
+
+MESSAGE=$(cat $1)
+COMMITFORMAT="^((feat|feature|fix|bugfix|chore|refactor|docs|style|test|perf|ci|build|revert|other)(\((.*)\))?\!?: #([0-9]+)|(Merge|Bumping|docs: Update documentation)) (.*)$"
+if ! [[ "$MESSAGE" =~ $COMMITFORMAT ]]; then
+  echo "Your commit was rejected due to the commit message. Skipping..."
+  echo ""
+  echo "Please use the following format:"
+  echo "<type>(optional scope): #id-issue <description>" 
+  echo ""
+  echo "Example:"
+  echo "feature: #1234 feature example comment"
+  echo "fix(ui): #4321 bugfix example comment"
+  echo "chore!: #4321 chore example comment with possible breaking change"
+  echo "refactor(chore)!: #4321 chore example comment with possible breaking change"
+  echo ""
+  echo "More details on docs/COMMITS.md or https://www.conventionalcommits.org/pt-br/v1.0.0/"
+  exit 1
+fi
