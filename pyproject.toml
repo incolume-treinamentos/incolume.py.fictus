@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "incolume.py.fictus"
-version = "0.3.0"
+version = "0.4.0"
 description = ""
 authors = ["Britodfbr <britodfbr@gmail.com>"]
 readme = "README.md"
@@ -9,6 +9,7 @@ packages = [{include = "incolume", from=""}]
 [tool.poetry.dependencies]
 python = "^3.8"
 tomli = "^2.0.1"
+incolumepy-utils = {git = "https://gitlab.com/development-incolume/incolumepy.utils.git", rev = "master"}
 
 
 [tool.poetry.group.dev.dependencies]
@@ -25,6 +26,7 @@ flake8 = "^5.0.4"
 pylint = "^2.15.6"
 tox = "^3.27.1"
 pytest-mock = "^3.10.0"
+incolumepy-utils = {git = "https://gitlab.com/development-incolume/incolumepy.utils.git", rev = "master"}
 
 [build-system]
 requires = ["poetry-core"]
