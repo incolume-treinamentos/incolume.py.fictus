@@ -98,6 +98,11 @@ exclude_lines = [
   "def run",
 ]
 
+[PEP8]
+# Detalhes em https://pep8.org/
+# define para todos os linters compatíveis
+max-line-length = 79
+
 [tool.black]
 line-length = 79
 #target-version = ['py38']
