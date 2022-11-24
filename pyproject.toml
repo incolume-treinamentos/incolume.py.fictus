@@ -16,6 +16,13 @@ classifiers = [
   'Topic :: Utilities'
 ]
 
+[tool.poetry.urls]
+"Bug Tracker" = "https://gitlab.com/development-incolume/incolume.py.fictus"
+"Documentation" = "https://gitlab.com/development-incolume/incolume.py.fictus/-/tree/master/docs"
+"Source" = "https://gitlab.com/development-incolume/incolume.py.fictus"
+"Git" = "https://gitlab.com/development-incolume/incolume.py.fictus.git"
+"Tracker" = "https://gitlab.com/development-incolume/incolume.py.fictus/-/issues"
+
 
 [tool.poetry.dependencies]
 python = "^3.8"
