@@ -5,6 +5,17 @@ description = ""
 authors = ["Britodfbr <britodfbr@gmail.com>"]
 readme = "README.md"
 packages = [{include = "incolume", from=""}]
+classifiers = [
+  'Development Status :: 5 - Production/Stable',
+  'Operating System :: OS Independent',
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3",
+  'Natural Language :: Portuguese (Brazilian)',
+  'Topic :: Software Development :: Libraries :: Python Modules',
+  'Topic :: Utilities'
+]
+
 
 [tool.poetry.dependencies]
 python = "^3.8"
