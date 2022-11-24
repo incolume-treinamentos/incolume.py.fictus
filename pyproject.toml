@@ -11,6 +11,10 @@ classifiers = [
   "Programming Language :: Python",
   "Programming Language :: Python :: 3 :: Only",
   "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
   'Natural Language :: Portuguese (Brazilian)',
   'Topic :: Software Development :: Libraries :: Python Modules',
   'Topic :: Utilities'
@@ -200,6 +204,10 @@ envlist =
     flake8
     mypy
     pylint
+    py38
+    py39
+    py310
+    py311
 
 [testenv]
 whitelist_externals = poetry
