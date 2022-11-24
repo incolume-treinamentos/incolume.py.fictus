@@ -4,16 +4,25 @@ version = "0.5.0a2"
 description = ""
 authors = ["Britodfbr <britodfbr@gmail.com>"]
 readme = "README.md"
-packages = [{include = "incolume", from=""}]
+packages = [
+    {include='incolume/py', from=''}
+]
 classifiers = [
   'Development Status :: 5 - Production/Stable',
   'Operating System :: OS Independent',
   "Programming Language :: Python",
   "Programming Language :: Python :: 3 :: Only",
   "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
   'Natural Language :: Portuguese (Brazilian)',
   'Topic :: Software Development :: Libraries :: Python Modules',
   'Topic :: Utilities'
+]
+include = [
+    "CHANGELOG.md",
 ]
 
 [tool.poetry.urls]
@@ -93,6 +102,11 @@ exclude_lines = [
   "__author__",
   "def run",
 ]
+
+[PEP8]
+# Detalhes em https://pep8.org/
+# define para todos os linters compatíveis
+max-line-length = 79
 
 [tool.black]
 line-length = 79
@@ -200,6 +214,10 @@ envlist =
     flake8
     mypy
     pylint
+    py38
+    py39
+    py310
+    py311
 
 [testenv]
 whitelist_externals = poetry
