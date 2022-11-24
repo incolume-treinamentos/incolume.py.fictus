@@ -169,3 +169,67 @@ include_trailing_comma = true
 [pycodestyle]
 #max_line_length = 120
 
+[tool.tox]
+legacy_tox_ini = """
+[tox]
+minversion = 3.1.0
+isolated_build = True
+envlist =
+    clean
+    black
+    isort
+    pydocstyle
+    flake8
+    mypy
+    pylint
+
+[testenv]
+whitelist_externals = poetry
+skip_install = true
+commands =
+    poetry env use {envpython}
+    poetry install -vv --no-root
+    poetry run pytest {posargs} tests/ -m \"not(slow or webtest)\"
+
+[testenv:clean]
+deps = coverage
+commands =
+  poetry run coverage erase
+
+[testenv:linters]
+commands =
+  {[testenv:black]commands}
+  {[testenv:isort]commands}
+  {[testenv:flake8]commands}
+  {[testenv:pydocstyle]commands}
+  {[testenv:mypy]commands}
+  {[testenv:pylint]commands}
+
+[testenv:stats]
+commands = poetry run pytest -xv --cov-report html:coverage_report/html --cov-report xml:coverage_report/cov.xml
+
+[testenv:flake8]
+deps = flake8
+commands = poetry run flake8 --config pyproject.toml incolume/ tests/
+
+[testenv:mypy]
+deps =
+    mypy
+    types-toml
+commands = poetry run mypy incolume/
+
+[testenv:pydocstyle]
+commands = poetry run pydocstyle incolume/ tests/
+
+[testenv:isort]
+commands = poetry run isort --check --atomic --py all incolume/ tests/
+
+[testenv:pylint]
+commands = poetry run pylint incolume/ tests/
+
+[testenv:black]
+commands = poetry run black --check incolume/ tests/
+
+[testenv:safety]
+commands = poetry run safety check
+"""
