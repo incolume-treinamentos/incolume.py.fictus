@@ -76,3 +76,96 @@ exclude_lines = [
   "def run",
 ]
 
+[tool.black]
+line-length = 79
+#target-version = ['py38']
+# include = '\.pyi?$'
+extend-exclude = '''
+# A regex preceded with ^/ will apply only to files and directories
+# in the root of the project.
+^/pyproject.toml  # exclude a file named pyproject.toml in the root of the project (in addition to the defaults)
+\.tox
+\.eggs
+build
+dist
+exemplos
+relatorios
+docs
+data
+.pytest_cache
+'''
+
+[flake8]
+#max-line-length = 120
+
+[tool.pylint.format]
+# Maximum number of characters on a single line.
+max-line-length = 79
+
+[tool.pylint.basic]
+# Allow shorter and longer variable names than the default.
+argument-rgx = "[a-z_][a-z0-9_]*$"
+attr-rgx = "[a-z_][a-z0-9_]*$"
+variable-rgx = "[a-z_][a-z0-9_]*$"
+
+# Ensure that orjson is analysed as a C extension by pylint.
+extension-pkg-whitelist = "orjson"
+
+[tool.pylint.messages_control]
+disable = [
+    # Disable too many and too few checks.
+    "too-many-ancestors",
+    "too-many-arguments",
+    "too-many-boolean-expressions",
+    "too-many-branches",
+    "too-many-function-args",
+    "too-many-instance-attributes",
+    "too-many-lines",
+    "too-many-locals",
+    "too-many-nested-blocks",
+    "too-many-public-methods",
+    "too-many-return-statements",
+    "too-many-statements",
+    "too-few-public-methods",
+
+    # Similar lines in files (often the case in tests).
+    "duplicate-code",
+
+    # Many functions (e.g. callbacks) will naturally have unused arguments.
+    "unused-argument",
+
+    # Disable checking that method could be a function in classes (often used for organisation).
+    "no-self-use",
+
+    # Disable failure for TODO items in the codebase (code will always have TODOs).
+    "fixme",
+
+    # Disable docstrings checks as we don't require excessive documentation.
+    "missing-docstring",
+
+    "no-member",
+    "unspecified-encoding",
+]
+
+[tool.mypy]
+mypy_path = "incolume"
+check_untyped_defs = true
+disallow_any_generics = true
+ignore_missing_imports = true
+no_implicit_optional = true
+show_error_codes = true
+strict_equality = true
+warn_redundant_casts = true
+warn_return_any = true
+warn_unreachable = true
+warn_unused_configs = true
+no_implicit_reexport = true
+
+[tool.isort]
+multi_line_output = 3
+#line_length = 120
+include_trailing_comma = true
+
+[pycodestyle]
+#max_line_length = 120
+
