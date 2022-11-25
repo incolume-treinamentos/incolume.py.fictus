@@ -230,7 +230,6 @@ envlist =
     black
     isort
     pydocstyle
-    flake8
     mypy
     pylama
     pylint
@@ -256,7 +255,6 @@ commands =
 commands =
   {[testenv:black]commands}
   {[testenv:isort]commands}
-  {[testenv:flake8]commands}
   {[testenv:pylama]commands}
   {[testenv:pydocstyle]commands}
   {[testenv:mypy]commands}
