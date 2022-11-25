@@ -34,7 +34,7 @@ include = [
 
 
 [tool.poetry.dependencies]
-python = "^3.8"
+python = "^3.7"
 tomli = "^2.0.1"
 incolumepy-utils = {git = "https://gitlab.com/development-incolume/incolumepy.utils.git", rev = "master"}
 
@@ -240,6 +240,7 @@ envlist =
     mypy
     pylama
     pylint
+    py37
     py38
     py39
     py310
