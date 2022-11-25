@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "incolume.py.fictus"
-version = "0.5.0a4"
+version = "0.5.0"
 description = ""
 authors = ["Britodfbr <britodfbr@gmail.com>"]
 readme = "README.md"
