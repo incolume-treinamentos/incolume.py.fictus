@@ -54,7 +54,6 @@ pylint = "^2.15.6"
 tox = "^3.27.1"
 pytest-mock = "^3.10.0"
 incolumepy-utils = {git = "https://gitlab.com/development-incolume/incolumepy.utils.git", rev = "master"}
-flakehell = "0.7.0"
 pylama = {extras = ["all"], version = "^8.4.1"}
 
 [build-system]
