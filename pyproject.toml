@@ -54,6 +54,7 @@ pylint = "^2.15.6"
 tox = "^3.27.1"
 pytest-mock = "^3.10.0"
 incolumepy-utils = {git = "https://gitlab.com/development-incolume/incolumepy.utils.git", rev = "master"}
+pylama = {extras = ["all"], version = "^8.4.1"}
 
 [build-system]
 requires = ["poetry-core"]
@@ -128,7 +129,25 @@ data
 '''
 
 [flake8]
-#max-line-length = 120
+max-line-length = 79
+extend-ignore = "E203,E501,W503"
+exclude = ".venv, .tox"
+
+[tool.pylama]
+format = "pylint"
+skip = "*/.tox/*,*/.env/*"
+linters = "pylint,mccabe"
+ignore = "F0401,C0111,E731"
+
+[tool.pylama.linter.pyflakes]
+builtins = "_"
+
+[tool.pylama.linter.pycodestyle]
+max_line_length = 79
+
+[tool.pylama.linter.pylint]
+max_line_length = 79
+disable = "R"
 
 [tool.pylint.format]
 # Maximum number of characters on a single line.
@@ -211,8 +230,8 @@ envlist =
     black
     isort
     pydocstyle
-    flake8
     mypy
+    pylama
     pylint
     py38
     py39
@@ -225,7 +244,7 @@ skip_install = true
 commands =
     poetry env use {envpython}
     poetry install -vv --no-root
-    poetry run pytest {posargs} tests/ -m \"not(slow or webtest)\"
+    poetry run pytest --pylama {posargs} tests/ -m \"not(slow or webtest)\"
 
 [testenv:clean]
 deps = coverage
@@ -236,7 +255,7 @@ commands =
 commands =
   {[testenv:black]commands}
   {[testenv:isort]commands}
-  {[testenv:flake8]commands}
+  {[testenv:pylama]commands}
   {[testenv:pydocstyle]commands}
   {[testenv:mypy]commands}
   {[testenv:pylint]commands}
@@ -247,6 +266,10 @@ commands = poetry run pytest -xv --cov-report html:coverage_report/html --cov-re
 [testenv:flake8]
 deps = flake8
 commands = poetry run flake8 --config pyproject.toml incolume/ tests/
+
+[testenv:pylama]
+deps = pylama
+commands = poetry run pylama incolume/ tests/
 
 [testenv:mypy]
 deps =
