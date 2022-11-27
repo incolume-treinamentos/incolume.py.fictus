@@ -8,19 +8,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 This file was automatically generated for [incolumepy.utils](https://gitlab.com/development-incolume/incolumepy.utils/-/tree/2.5.4)
 
 ---
-## [0.5.0]	&#8212; 2022-11-25:
-### Added
-  - Adicionado ferramentas de lint;
-  - Automação para linters via tox;
-  - URLs do projeto;
-  - Testes multiversões de Python;
-### Changed:
-  - linter flake8 > pylama;
-### Removed:
-  - Removido pacote flakehell.
-### Deprecated:
-  - Descontinuado a utilização do flake8 como linter validador de complexidade.
-
+## [0.5.0]	2022-11-25:
+	Added: Adicionado ferramentas de lint; Automação para linters via tox; URLs do projeto; Testes multiversões de Python; Changed: linter flake8 > pylama; Removed: Removido pacote flakehell. Deprecated: Descontinuado a utilização do flake8 como linter validador de complexidade.
 ## [0.4.0]	2022-11-23:
 	Added: Adicionado ferramentas para automação do CHANGELOG.md.
 ## [0.3.0]	2022-11-23:
