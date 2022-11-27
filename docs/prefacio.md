@@ -21,14 +21,14 @@ Disponível em [docs/examples/EXAMPLES.rst](examples/EXAMPLES.rst).
 
 
 ## Registro de Mudanças ##
-Disponível em [CHANGELOG.md](../CHANGELOG.md).
+Disponível em [CHANGELOG.md](CHANGELOG.md).
 
 
 ## Contribuidores ##
-Disponível em [CONTRIBUTORS.rst](../CONTRIBUTORS.rst).
+Disponível em [docs/CONTRIBUTORS.md](CONTRIBUTORS.md).
 
 
 ## Tecnologias aplicadas ##
 Deseja aprender mais sobre alguns dos requisitos
 não funcionais utilizados no projeto?
-Consulte os [Padrões Aplicados](development.md#padres-aplicados).
+Consulte a sessão [Padrões Aplicados em Guia de Contribuíção](development.md).
