@@ -8,8 +8,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 This file was automatically generated for [incolumepy.utils](https://gitlab.com/development-incolume/incolumepy.utils/-/tree/2.5.4)
 
 ---
-## [0.6.0]	2022-11-25:
-	Added: Validação de complexidade cíclica; Setup de configuração para ambiente de desenvolvimento.
+## [0.7.0]	2022-11-29:
+	Added: Limitação para complexidade ciclomática; Automação configuração do ambiente dev via make setup; Definito sphinx como gerador de documentação automática; Changed: Tratativa acrescimo Python 3.7;
+## [0.6.0]	2022-11-27:
+	Added: Definido o pacote Sphinx como suite de geração de documentação; Acrescentado estrutura base para geração automática de documentação;
 ## [0.5.0]	2022-11-25:
 	Added: Adicionado ferramentas de lint; Automação para linters via tox; URLs do projeto; Testes multiversões de Python; Changed: linter flake8 > pylama; Removed: Removido pacote flakehell. Deprecated: Descontinuado a utilização do flake8 como linter validador de complexidade.
 ## [0.4.0]	2022-11-23:
@@ -27,3 +29,4 @@ This file was automatically generated for [incolumepy.utils](https://gitlab.com/
 [0.4.0]: https://github.com/incolumepy/incolume.py.fictus/compare/0.3.0...0.4.0
 [0.5.0]: https://github.com/incolumepy/incolume.py.fictus/compare/0.4.0...0.5.0
 [0.6.0]: https://github.com/incolumepy/incolume.py.fictus/compare/0.5.0...0.6.0
+[0.7.0]: https://github.com/incolumepy/incolume.py.fictus/compare/0.6.0...0.7.0
