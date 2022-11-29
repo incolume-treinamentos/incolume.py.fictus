@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "incolume.py.fictus"
-version = "0.6.0"
+version = "0.7.0"
 description = ""
 authors = ["Britodfbr <britodfbr@gmail.com>"]
 readme = "README.md"
@@ -151,6 +151,10 @@ max_line_length = 79
 [tool.pylama.linter.pylint]
 max_line_length = 79
 disable = "R"
+
+[tool.pylama.linter.mccabe]
+max-complexity=3
+
 
 [tool.pylint.format]
 # Maximum number of characters on a single line.

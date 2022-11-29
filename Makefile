@@ -44,3 +44,9 @@ changelog:   ## Update changelog file
 	@poetry run python -c "from incolumepy.utils import update_changelog; \
 	update_changelog($(CHANGELOGFILE), urlcompare=$(URLCOMPARE))"
 	@echo 'Atualização de CHANGESLOG realizada com sucesso.'
+
+.PHONY: setup
+setup:    ## Setup environment to this project
+	@git config core.hooksPath .git-hooks
+	@poetry env use $(PYTHON_VERSION)
+	@poetry install
