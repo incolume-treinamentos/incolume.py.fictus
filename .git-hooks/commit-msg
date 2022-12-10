@@ -1,4 +1,4 @@
 #!/bin/sh
-echo ""
-echo "Boa! continue trabalhando com dedicação."
-echo ""
+
+message='Boa! Continue trabalhando com dedicação!'
+echo "\033[1;32m $message\033[0m\n";
