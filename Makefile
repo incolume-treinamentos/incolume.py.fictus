@@ -27,7 +27,7 @@ clean:   ## Shallow clean into environment (.pyc, .cache, .egg, .log, et all)
 	@find ./ -name "*.egg-info" -exec rm -rf {} \;
 	@find ./ -name "*.coverage" -exec rm -rf {} \;
 	@find ./ -maxdepth 1 -type d -name "*cov*" -exec rm -rf {} \;
-	@rm -fv cov.xml
+	@rm -fv cov.xml poetry.toml
 	@rm -rf docs/_build
 	@echo " finished!"
 
