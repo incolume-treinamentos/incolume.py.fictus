@@ -45,8 +45,8 @@ changelog:   ## Update changelog file
 	update_changelog($(CHANGELOGFILE), urlcompare=$(URLCOMPARE))"
 	@echo 'Atualização de CHANGESLOG realizada com sucesso.'
 
-.PHONY: setup
-setup:    ## Setup environment to this project
-	@git config core.hooksPath .git-hooks
+.PHOMY: setup
+setup: ## setup environment python with poetry end install all dependences
 	@poetry env use $(PYTHON_VERSION)
+	@git config core.hooksPath .git-hooks
 	@poetry install
