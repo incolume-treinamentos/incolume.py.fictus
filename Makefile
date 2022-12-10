@@ -50,6 +50,10 @@ changelog:   ## Update changelog file
 	update_changelog($(CHANGELOGFILE), urlcompare=$(URLCOMPARE))"
 	@echo 'Atualização de CHANGESLOG realizada com sucesso.'
 
+.PHONY: patch
+patch: changelog   ## Generate a build, new patch commit version, default semver
+	@v=$$(poetry version patch); poetry run pytest tests/ && git commit -m "$$v" pyproject.toml CHANGELOG.md $$(find incolume* -name version.txt)  #sem tag
+
 .PHONY: prerelease
 prerelease: changelog   ## Generate a prebuild, new prerelease commit version, default semver
 	@v=$$(poetry version prerelease); poetry run pytest tests/ && git commit -m "$$v" pyproject.toml CHANGELOG.md $$(find incolume* -name version.txt)  #sem tag
