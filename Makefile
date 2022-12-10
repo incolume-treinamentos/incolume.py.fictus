@@ -10,6 +10,11 @@ CHANGELOGFILE := 'CHANGELOG.md'
 help:  ## Show this instructions
 	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
 
+.PHONY: black
+black:   ##Apply code style black format
+	@poetry run black $(DIRECTORIES) && git commit -m "style(lint): Applied Code style black automaticly at `date +"%FT%T%z"`" . || echo
+	@echo ">>>  Checked code style Black format automaticly  <<<"
+
 .PHONY: clean
 clean:   ## Shallow clean into environment (.pyc, .cache, .egg, .log, et all)
 	@echo -n "Starting cleanning environment .."
