@@ -8,3 +8,22 @@ if ! [[ $BRANCH =~ $REGEX ]]; then
   echo "Please rename your branch with 'enhancement/epoch#timestamp' syntax"
   exit 1
 fi
+
+REPO_DIR=$(git rev-parse --show-toplevel)
+
+message="[Policy] Checking code in $REPO_DIR with black..."
+# echo with color: https://gist.github.com/fnky/458719343aabd01cfb17a3a4f7296797
+echo -e "\033[1;34mInfo: $message\033[0m"
+
+poetry run black --check $REPO_DIR && poetry run isort --check $REPO_DIR
+
+if [ $? -eq 1 ]; then
+    message="[Policy] Black|Isort check failed, "
+    message+="please use black|isort to format your code."
+    echo -e "\033[1;31mERROR: $message\033[0m";
+    exit 1
+else
+    message="[Policy] Passed black|isort checking."
+    echo -e "\033[1;32mOK: $message\033[0m"
+    exit 0
+fi
