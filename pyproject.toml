@@ -144,6 +144,7 @@ data
 
 [flake8]
 max-line-length = 79
+max-complexity = 5
 extend-ignore = "E203,E501,W503"
 exclude = ".venv, .tox"
 
@@ -164,8 +165,7 @@ max_line_length = 79
 disable = "R"
 
 [tool.pylama.linter.mccabe]
-max-complexity=3
-
+max-complexity=5
 
 [tool.pylint.format]
 # Maximum number of characters on a single line.
