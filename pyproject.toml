@@ -148,6 +148,11 @@ skip = "*/.tox/*,*/.env/*"
 linters = "pylint,mccabe"
 ignore = "F0401,C0111,E731"
 
+[[tools.pylama.files]]
+path = "docs/conf.py"
+ignore = "C901"
+skip = 1
+
 [tool.pylama.linter.pyflakes]
 builtins = "_"
 
