@@ -48,18 +48,7 @@ clean-all: clean   ## Deep cleanning into environment (dist, build, htmlcov, .to
 changelog:   ## Update changelog file
 	@poetry run python -c "from incolumepy.utils import update_changelog; \
 	update_changelog($(CHANGELOGFILE), urlcompare=$(URLCOMPARE))"
-	@echo 'Atualização de CHANGELOG realizada com sucesso.'
-
-.PHONY: docsgen
-docsgen: clean changelog    ## Generate documentation
-	@ cd docs; make html; cd -
-	@ git commit -m "docs: Updated documentation \
- (`date +%FT%T%z`)" docs/ CHANGELOG.md
-
-.PHONY: isort
-isort:  ## isort apply
-	@poetry run isort --atomic --py all $(DIRECTORIES) && git commit -m "style(lint): Applied Code style isort automaticly at `date +%FT%T%z`" . || echo
-	@echo ">>>  Checked code style isort format automaticly  <<<"
+	@echo 'Atualização de CHANGESLOG realizada com sucesso.'
 
 .PHOMY: setup
 setup: ## setup environment python with poetry end install all dependences
