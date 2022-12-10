@@ -44,6 +44,11 @@ clean-all: clean   ## Deep cleanning into environment (dist, build, htmlcov, .to
 	@poetry env list|awk '{print $$1}'|while read a; do poetry env remove $${a} 2> /dev/null && echo "$${a} removed."|| echo "$${a} not removed."; done
 	@echo "Deep cleaning finished!"
 
+.PHONY: docsgen
+docsgen: clean changelog    ## Generate documentation
+	@ cd docs; make html; cd -
+	@ git commit -m "docs: Updated documentation (`date +%FT%T%z`)" docs/ CHANGELOG.md
+
 .PHONY: changelog
 changelog:   ## Update changelog file
 	@poetry run python -c "from incolumepy.utils import update_changelog; \
