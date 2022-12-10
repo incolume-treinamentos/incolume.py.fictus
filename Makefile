@@ -45,6 +45,12 @@ changelog:   ## Update changelog file
 	update_changelog($(CHANGELOGFILE), urlcompare=$(URLCOMPARE))"
 	@echo 'Atualização de CHANGELOG realizada com sucesso.'
 
+.PHONY: docsgen
+docsgen: clean changelog    ## Generate documentation
+	@ cd docs; make html; cd -
+	@ git commit -m "docs: Updated documentation \
+ (`date +%FT%T%z`)" docs/ CHANGELOG.md
+
 .PHOMY: setup
 setup: ## setup environment python with poetry end install all dependences
 	@poetry env use $(PYTHON_VERSION)
