@@ -172,6 +172,9 @@ init-hook = 'import sys; sys.path.append(".")'    # força carregamento do PYTHO
 [tool.pylint.format]
 # Maximum number of characters on a single line.
 max-line-length = 79
+# Format style used to check logging format string. `old` means using %
+# formatting, `new` is for `{}` formatting,and `fstr` is for f-strings.
+logging-format-style = 'old'
 
 [tool.pylint.basic]
 # Allow shorter and longer variable names than the default.
