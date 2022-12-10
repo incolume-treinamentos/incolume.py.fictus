@@ -91,8 +91,6 @@ markers = [
 [tool.coverage.html]
 directory = "coverage_report/html"
 
-[tool.coverage.xml]
-
 [tool.coverage.run]
 omit = [
   # omit anything in a .local directory anywhere
@@ -278,21 +276,18 @@ commands =
 commands =
   {[testenv:black]commands}
   {[testenv:isort]commands}
-  {[testenv:pylama]commands}
-  {[testenv:pydocstyle]commands}
   {[testenv:mypy]commands}
+  {[testenv:pydocstyle]commands}
+  {[testenv:pylama]commands}
   {[testenv:pylint]commands}
+;  {[testenv:flake8]commands}
 
 [testenv:stats]
-commands = poetry run pytest -xv --cov-report html:coverage_report/html --cov-report xml:coverage_report/cov.xml
+commands = poetry run pytest -xv --cov-report html:coverage_report/html --cov-report xml:coverage_report/xml/cov.xml
 
-[testenv:flake8]
-deps = flake8
-commands = poetry run flake8 --config pyproject.toml incolume/ tests/
-
-[testenv:pylama]
-deps = pylama
-commands = poetry run pylama incolume/ tests/
+;[testenv:flake8]
+;deps = flake8
+;commands = poetry run flake8 --config pyproject.toml incolume/ tests/
 
 [testenv:mypy]
 deps =
@@ -305,6 +300,10 @@ commands = poetry run pydocstyle incolume/ tests/
 
 [testenv:isort]
 commands = poetry run isort --check --atomic --py all incolume/ tests/
+
+[testenv:pylama]
+deps = pylama
+commands = poetry run pylama incolume/ tests/
 
 [testenv:pylint]
 commands = poetry run pylint incolume/ tests/
