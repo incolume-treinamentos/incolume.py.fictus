@@ -43,7 +43,7 @@ clean-all: clean   ## Deep cleanning into environment (dist, build, htmlcov, .to
 changelog:   ## Update changelog file
 	@poetry run python -c "from incolumepy.utils import update_changelog; \
 	update_changelog($(CHANGELOGFILE), urlcompare=$(URLCOMPARE))"
-	@echo 'Atualização de CHANGESLOG realizada com sucesso.'
+	@echo 'Atualização de CHANGELOG realizada com sucesso.'
 
 .PHOMY: setup
 setup: ## setup environment python with poetry end install all dependences
