@@ -50,6 +50,10 @@ changelog:   ## Update changelog file
 	update_changelog($(CHANGELOGFILE), urlcompare=$(URLCOMPARE))"
 	@echo 'Atualização de CHANGESLOG realizada com sucesso.'
 
+.PHONY: prerelease
+prerelease: changelog   ## Generate a prebuild, new prerelease commit version, default semver
+	@v=$$(poetry version prerelease); poetry run pytest tests/ && git commit -m "$$v" pyproject.toml CHANGELOG.md $$(find incolume* -name version.txt)  #sem tag
+
 .PHOMY: setup
 setup: ## setup environment python with poetry end install all dependences
 	@poetry env use $(PYTHON_VERSION)
