@@ -105,14 +105,8 @@ omit = [
 
 [tool.coverage.report]
 exclude_lines = [
+  "pragma: no cover",
   "if __name__ == .__main__.:",
-  "logger.debug",
-  "logger.info",
-  "logger.warning",
-  "logger.error",
-  "except ImportError",
-  "except (ModuleNotFoundError, ImportError)",
-  "except ModuleNotFoundError",
   "__package__ =",
   "__author__",
   "def run",
