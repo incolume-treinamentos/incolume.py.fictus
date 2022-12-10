@@ -56,6 +56,11 @@ docsgen: clean changelog    ## Generate documentation
 	@ git commit -m "docs: Updated documentation \
  (`date +%FT%T%z`)" docs/ CHANGELOG.md
 
+.PHONY: isort
+isort:  ## isort apply
+	@poetry run isort --atomic --py all $(DIRECTORIES) && git commit -m "style(lint): Applied Code style isort automaticly at `date +%FT%T%z`" . || echo
+	@echo ">>>  Checked code style isort format automaticly  <<<"
+
 .PHOMY: setup
 setup: ## setup environment python with poetry end install all dependences
 	@poetry env use $(PYTHON_VERSION)
