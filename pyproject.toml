@@ -164,9 +164,6 @@ disable = "R"
 [tool.pylama.linter.mccabe]
 max-complexity=5
 
-[tool.pylint.master]
-init-hook = 'import sys; sys.path.append(".")'    # força carregamento do PYTHONPATH no pylint. Necessário no Windows.
-
 [tool.pylint.format]
 # Maximum number of characters on a single line.
 max-line-length = 79

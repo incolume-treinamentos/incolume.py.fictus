@@ -44,22 +44,24 @@ clean-all: clean   ## Deep cleanning into environment (dist, build, htmlcov, .to
 	@poetry env list|awk '{print $$1}'|while read a; do poetry env remove $${a} 2> /dev/null && echo "$${a} removed."|| echo "$${a} not removed."; done
 	@echo "Deep cleaning finished!"
 
+.PHONY: docsgen
+docsgen: clean changelog    ## Generate documentation
+	@ cd docs; make html; cd -
+	@ git commit -m "docs: Updated documentation (`date +%FT%T%z`)" docs/ CHANGELOG.md
+
 .PHONY: changelog
 changelog:   ## Update changelog file
 	@poetry run python -c "from incolumepy.utils import update_changelog; \
 	update_changelog($(CHANGELOGFILE), urlcompare=$(URLCOMPARE))"
-	@echo 'Atualização de CHANGELOG realizada com sucesso.'
+	@echo 'Atualização de CHANGESLOG realizada com sucesso.'
 
-.PHONY: docsgen
-docsgen: clean changelog    ## Generate documentation
-	@ cd docs; make html; cd -
-	@ git commit -m "docs: Updated documentation \
- (`date +%FT%T%z`)" docs/ CHANGELOG.md
+.PHONY: patch
+patch: changelog   ## Generate a build, new patch commit version, default semver
+	@v=$$(poetry version patch); poetry run pytest tests/ && git commit -m "$$v" pyproject.toml CHANGELOG.md $$(find incolume* -name version.txt)  #sem tag
 
-.PHONY: isort
-isort:  ## isort apply
-	@poetry run isort --atomic --py all $(DIRECTORIES) && git commit -m "style(lint): Applied Code style isort automaticly at `date +%FT%T%z`" . || echo
-	@echo ">>>  Checked code style isort format automaticly  <<<"
+.PHONY: prerelease
+prerelease: changelog   ## Generate a prebuild, new prerelease commit version, default semver
+	@v=$$(poetry version prerelease); poetry run pytest tests/ && git commit -m "$$v" pyproject.toml CHANGELOG.md $$(find incolume* -name version.txt)  #sem tag
 
 .PHOMY: setup
 setup: ## setup environment python with poetry end install all dependences
