@@ -22,7 +22,18 @@ classifiers = [
   'Topic :: Utilities'
 ]
 include = [
-    "CHANGELOG.md",
+  'README.md',
+  "CHANGELOG.md",
+  'docs/HISTORY.rst',
+  'docs/EXAMPLES.rst',
+  'docs/CONTRIBUTORS.rst',
+  'pyproject.toml',
+]
+exclude = [
+  "examples/",
+  "ez_setup",
+  "my_package/excluded.py",
+  "tests/",
 ]
 
 [tool.poetry.urls]
