@@ -10,6 +10,11 @@ CHANGELOGFILE := 'CHANGELOG.md'
 help:  ## Show this instructions
 	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
 
+.PHONY: black
+black:   ##Apply code style black format
+	@poetry run black $(DIRECTORIES) && git commit -m "style(lint): Applied Code style black automaticly at `date +"%FT%T%z"`" . || echo
+	@echo ">>>  Checked code style Black format automaticly  <<<"
+
 .PHONY: clean
 clean:   ## Shallow clean into environment (.pyc, .cache, .egg, .log, et all)
 	@echo -n "Starting cleanning environment .."
@@ -22,7 +27,7 @@ clean:   ## Shallow clean into environment (.pyc, .cache, .egg, .log, et all)
 	@find ./ -name "*.egg-info" -exec rm -rf {} \;
 	@find ./ -name "*.coverage" -exec rm -rf {} \;
 	@find ./ -maxdepth 1 -type d -name "*cov*" -exec rm -rf {} \;
-	@rm -fv cov.xml
+	@rm -fv cov.xml poetry.toml
 	@rm -rf docs/_build
 	@echo " finished!"
 
@@ -43,10 +48,21 @@ clean-all: clean   ## Deep cleanning into environment (dist, build, htmlcov, .to
 changelog:   ## Update changelog file
 	@poetry run python -c "from incolumepy.utils import update_changelog; \
 	update_changelog($(CHANGELOGFILE), urlcompare=$(URLCOMPARE))"
-	@echo 'Atualização de CHANGESLOG realizada com sucesso.'
+	@echo 'Atualização de CHANGELOG realizada com sucesso.'
 
-.PHONY: setup
-setup:    ## Setup environment to this project
-	@git config core.hooksPath .git-hooks
+.PHONY: docsgen
+docsgen: clean changelog    ## Generate documentation
+	@ cd docs; make html; cd -
+	@ git commit -m "docs: Updated documentation \
+ (`date +%FT%T%z`)" docs/ CHANGELOG.md
+
+.PHONY: isort
+isort:  ## isort apply
+	@poetry run isort --atomic --py all $(DIRECTORIES) && git commit -m "style(lint): Applied Code style isort automaticly at `date +%FT%T%z`" . || echo
+	@echo ">>>  Checked code style isort format automaticly  <<<"
+
+.PHOMY: setup
+setup: ## setup environment python with poetry end install all dependences
 	@poetry env use $(PYTHON_VERSION)
+	@git config core.hooksPath .git-hooks
 	@poetry install

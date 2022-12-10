@@ -22,7 +22,18 @@ classifiers = [
   'Topic :: Utilities'
 ]
 include = [
-    "CHANGELOG.md",
+  'README.md',
+  "CHANGELOG.md",
+  'docs/HISTORY.rst',
+  'docs/EXAMPLES.rst',
+  'docs/CONTRIBUTORS.rst',
+  'pyproject.toml',
+]
+exclude = [
+  "examples/",
+  "ez_setup",
+  "my_package/excluded.py",
+  "tests/",
 ]
 
 [tool.poetry.urls]
@@ -80,8 +91,6 @@ markers = [
 [tool.coverage.html]
 directory = "coverage_report/html"
 
-[tool.coverage.xml]
-
 [tool.coverage.run]
 omit = [
   # omit anything in a .local directory anywhere
@@ -94,14 +103,8 @@ omit = [
 
 [tool.coverage.report]
 exclude_lines = [
+  "pragma: no cover",
   "if __name__ == .__main__.:",
-  "logger.debug",
-  "logger.info",
-  "logger.warning",
-  "logger.error",
-  "except ImportError",
-  "except (ModuleNotFoundError, ImportError)",
-  "except ModuleNotFoundError",
   "__package__ =",
   "__author__",
   "def run",
@@ -133,6 +136,7 @@ data
 
 [flake8]
 max-line-length = 79
+max-complexity = 5
 extend-ignore = "E203,E501,W503"
 exclude = ".venv, .tox"
 
@@ -141,6 +145,11 @@ format = "pylint"
 skip = "*/.tox/*,*/.env/*"
 linters = "pylint,mccabe"
 ignore = "F0401,C0111,E731"
+
+[[tools.pylama.files]]
+path = "docs/conf.py"
+ignore = "C901"
+skip = 1
 
 [tool.pylama.linter.pyflakes]
 builtins = "_"
@@ -153,12 +162,17 @@ max_line_length = 79
 disable = "R"
 
 [tool.pylama.linter.mccabe]
-max-complexity=3
+max-complexity=5
 
+[tool.pylint.master]
+init-hook = 'import sys; sys.path.append(".")'    # força carregamento do PYTHONPATH no pylint. Necessário no Windows.
 
 [tool.pylint.format]
 # Maximum number of characters on a single line.
 max-line-length = 79
+# Format style used to check logging format string. `old` means using %
+# formatting, `new` is for `{}` formatting,and `fstr` is for f-strings.
+logging-format-style = 'old'
 
 [tool.pylint.basic]
 # Allow shorter and longer variable names than the default.
@@ -262,21 +276,18 @@ commands =
 commands =
   {[testenv:black]commands}
   {[testenv:isort]commands}
-  {[testenv:pylama]commands}
-  {[testenv:pydocstyle]commands}
   {[testenv:mypy]commands}
+  {[testenv:pydocstyle]commands}
+  {[testenv:pylama]commands}
   {[testenv:pylint]commands}
+;  {[testenv:flake8]commands}
 
 [testenv:stats]
-commands = poetry run pytest -xv --cov-report html:coverage_report/html --cov-report xml:coverage_report/cov.xml
+commands = poetry run pytest -xv --cov-report html:coverage_report/html --cov-report xml:coverage_report/xml/cov.xml
 
-[testenv:flake8]
-deps = flake8
-commands = poetry run flake8 --config pyproject.toml incolume/ tests/
-
-[testenv:pylama]
-deps = pylama
-commands = poetry run pylama incolume/ tests/
+;[testenv:flake8]
+;deps = flake8
+;commands = poetry run flake8 --config pyproject.toml incolume/ tests/
 
 [testenv:mypy]
 deps =
@@ -289,6 +300,10 @@ commands = poetry run pydocstyle incolume/ tests/
 
 [testenv:isort]
 commands = poetry run isort --check --atomic --py all incolume/ tests/
+
+[testenv:pylama]
+deps = pylama
+commands = poetry run pylama incolume/ tests/
 
 [testenv:pylint]
 commands = poetry run pylint incolume/ tests/
