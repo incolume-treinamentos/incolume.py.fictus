@@ -10,6 +10,11 @@ CHANGELOGFILE := 'CHANGELOG.md'
 help:  ## Show this instructions
 	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
 
+.PHONY: black
+black:   ##Apply code style black format
+	@poetry run black $(DIRECTORIES) && git commit -m "style(lint): Applied Code style black automaticly at `date +"%FT%T%z"`" . || echo
+	@echo ">>>  Checked code style Black format automaticly  <<<"
+
 .PHONY: clean
 clean:   ## Shallow clean into environment (.pyc, .cache, .egg, .log, et all)
 	@echo -n "Starting cleanning environment .."
@@ -22,7 +27,7 @@ clean:   ## Shallow clean into environment (.pyc, .cache, .egg, .log, et all)
 	@find ./ -name "*.egg-info" -exec rm -rf {} \;
 	@find ./ -name "*.coverage" -exec rm -rf {} \;
 	@find ./ -maxdepth 1 -type d -name "*cov*" -exec rm -rf {} \;
-	@rm -fv cov.xml
+	@rm -fv cov.xml poetry.toml
 	@rm -rf docs/_build
 	@echo " finished!"
 
@@ -39,14 +44,27 @@ clean-all: clean   ## Deep cleanning into environment (dist, build, htmlcov, .to
 	@poetry env list|awk '{print $$1}'|while read a; do poetry env remove $${a} 2> /dev/null && echo "$${a} removed."|| echo "$${a} not removed."; done
 	@echo "Deep cleaning finished!"
 
+.PHONY: docsgen
+docsgen: clean changelog    ## Generate documentation
+	@ cd docs; make html; cd -
+	@ git commit -m "docs: Updated documentation (`date +%FT%T%z`)" docs/ CHANGELOG.md
+
 .PHONY: changelog
 changelog:   ## Update changelog file
 	@poetry run python -c "from incolumepy.utils import update_changelog; \
 	update_changelog($(CHANGELOGFILE), urlcompare=$(URLCOMPARE))"
 	@echo 'Atualização de CHANGESLOG realizada com sucesso.'
 
-.PHONY: setup
-setup:    ## Setup environment to this project
-	@git config core.hooksPath .git-hooks
+.PHONY: patch
+patch: changelog   ## Generate a build, new patch commit version, default semver
+	@v=$$(poetry version patch); poetry run pytest tests/ && git commit -m "$$v" pyproject.toml CHANGELOG.md $$(find incolume* -name version.txt)  #sem tag
+
+.PHONY: prerelease
+prerelease: changelog   ## Generate a prebuild, new prerelease commit version, default semver
+	@v=$$(poetry version prerelease); poetry run pytest tests/ && git commit -m "$$v" pyproject.toml CHANGELOG.md $$(find incolume* -name version.txt)  #sem tag
+
+.PHOMY: setup
+setup: ## setup environment python with poetry end install all dependences
 	@poetry env use $(PYTHON_VERSION)
+	@git config core.hooksPath .git-hooks
 	@poetry install

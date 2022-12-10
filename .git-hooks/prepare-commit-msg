@@ -1,20 +1,18 @@
 #!/bin/bash
 
 MESSAGE=$(cat $1)
-COMMITFORMAT="^((feat|feature|fix|bugfix|chore|refactor|docs|style|test|perf|ci|build|revert|other)(\((.*)\))?\!?: #([0-9]+)|(Revert|Merge|Bumping|docs: Update documentation)) (.*)$"
+COMMITFORMAT="^((feat|feature|fix|bugfix|chore|refactor|docs|style|test|perf|ci|build|revert|other)(\((.*)\))?\!?: #([0-9]+)|(Merge|Bumping|Revert|docs: Updated documentation|style\(lint\): Applied Code style)) (.*)$"
 if ! [[ "$MESSAGE" =~ $COMMITFORMAT ]]; then
-  echo "Your commit was rejected due to the commit message. Skipping..."
-  echo ""
-  echo "Please use the following format:"
-  echo "<type>(optional scope): #id-issue <description>"
-  echo ""
-  echo "Example:"
-  echo "feature: #1234 feature example comment"
-  echo "fix(ui): #4321 bugfix example comment"
-  echo "fix!: #4321 chore example comment with possible breaking change"
-  echo "chore!: #4321 chore example comment with possible breaking change"
-  echo "refactor(chore)!: #4321 chore example comment with possible breaking change"
-  echo ""
-  echo "More details on docs/COMMITS.md or https://www.conventionalcommits.org/pt-br/v1.0.0/"
+  message="Your commit was rejected due to the commit message. Skipping..."
+  message+="\n\nPlease use the following format:"
+  message+="\n<type>(optional scope): #id-issue <description>"
+  message+="\n\nExamples:"
+  message+="\nfeature: #1234 feature example comment"
+  message+="\nfix(ui): #4321 bugfix example comment"
+  message+="\nfix!: #4321 chore example comment with possible breaking change"
+  message+="\nchore!: #4321 chore example comment with possible breaking change"
+  message+="\nrefactor(chore)!: #4321 chore example comment with possible breaking change"
+  message+="\n\nMore details on docs/COMMITS.md or https://www.conventionalcommits.org/pt-br/v1.0.0/"
+  echo -e "\033[1;31mERROR: $message\033[0m";
   exit 1
 fi
