@@ -55,6 +55,11 @@ changelog:   ## Update changelog file
 	update_changelog($(CHANGELOGFILE), urlcompare=$(URLCOMPARE))"
 	@echo 'Atualização de CHANGESLOG realizada com sucesso.'
 
+.PHONY: isort
+isort:   ##Apply code style isort format
+	@poetry run isort $(DIRECTORIES) && git commit -m "style(lint): Applied Code style isort automaticly at `date +"%FT%T%z"`" . || echo
+	@echo ">>>  Checked code style isort format automaticly  <<<"
+
 .PHONY: patch
 patch: changelog   ## Generate a build, new patch commit version, default semver
 	@v=$$(poetry version patch); poetry run pytest tests/ && git commit -m "$$v" pyproject.toml CHANGELOG.md $$(find incolume* -name version.txt)  #sem tag
