@@ -53,7 +53,7 @@ docsgen: clean changelog    ## Generate documentation
 changelog:   ## Update changelog file
 	@poetry run python -c "from incolumepy.utils import update_changelog; \
 	update_changelog($(CHANGELOGFILE), urlcompare=$(URLCOMPARE))"
-	@echo 'Atualização de CHANGESLOG realizada com sucesso.'
+	@echo 'CHANGELOG file updated with success.'
 
 .PHONY: isort
 isort:   ##Apply code style isort format
@@ -61,12 +61,20 @@ isort:   ##Apply code style isort format
 	@echo ">>>  Checked code style isort format automaticly  <<<"
 
 .PHONY: patch
-patch: changelog   ## Generate a build, new patch commit version, default semver
-	@v=$$(poetry version patch); poetry run pytest tests/ && git commit -m "$$v" pyproject.toml CHANGELOG.md $$(find incolume* -name version.txt)  #sem tag
+patch:   ## Generate a build, new patch commit version, default semver
+	@v=$$(poetry version patch); poetry run pytest tests/ && make changelog && git commit -m "$$v" pyproject.toml CHANGELOG.md $$(find incolume* -name version.txt)  #sem tag
+
+.PHONY: premajor
+premajor:    ## Generate a prebuild, new premajor commit version, default semver
+	@v=$$(poetry version premajor); poetry run pytest tests/ && make changelog && git commit -m "$$v" pyproject.toml CHANGELOG.md $$(find incolume* -name version.txt)  #sem tag
+
+.PHONY: preminor
+preminor:    ## Generate a prebuild, new preminor commit version, default semver
+	@v=$$(poetry version preminor); poetry run pytest tests/ && make changelog && git commit -m "$$v" pyproject.toml CHANGELOG.md $$(find incolume* -name version.txt)  #sem tag
 
 .PHONY: prerelease
-prerelease: changelog   ## Generate a prebuild, new prerelease commit version, default semver
-	@v=$$(poetry version prerelease); poetry run pytest tests/ && git commit -m "$$v" pyproject.toml CHANGELOG.md $$(find incolume* -name version.txt)  #sem tag
+prerelease:    ## Generate a prebuild, new prerelease commit version, default semver
+	@v=$$(poetry version prerelease); poetry run pytest tests/ && make changelog && git commit -m "$$v" pyproject.toml CHANGELOG.md $$(find incolume* -name version.txt)  #sem tag
 
 .PHOMY: setup
 setup: ## setup environment python with poetry end install all dependences
