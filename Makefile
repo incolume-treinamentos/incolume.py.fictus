@@ -76,6 +76,14 @@ preminor:    ## Generate a prebuild, new preminor commit version, default semver
 prerelease:    ## Generate a prebuild, new prerelease commit version, default semver
 	@v=$$(poetry version prerelease); poetry run pytest tests/ && make changelog && git commit -m "$$v" pyproject.toml CHANGELOG.md $$(find incolume* -name version.txt)  #sem tag
 
+.PHONY: release
+release:    ## Generate new release commit with version/tag default semver
+	@git checkout dev
+	@msg=$$(poetry version patch); poetry run pytest tests/ && make changelog && git commit -m "$$msg" pyproject.toml CHANGELOG.md $$(find incolume* -name version.txt) && make docsgen
+	@git checkout tags; git merge --no-ff dev && git tag -f $$(poetry version -s) -m "Changed: $$msg";
+	@git checkout main; git merge --no-ff tags
+	@git checkout dev    #com tag
+
 .PHOMY: setup
 setup: ## setup environment python with poetry end install all dependences
 	@poetry env use $(PYTHON_VERSION)
