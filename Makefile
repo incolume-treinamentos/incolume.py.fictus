@@ -68,6 +68,10 @@ patch:   ## Generate a build, new patch commit version, default semver
 premajor:    ## Generate a prebuild, new premajor commit version, default semver
 	@v=$$(poetry version premajor); poetry run pytest tests/ && make changelog && git commit -m "$$v" pyproject.toml CHANGELOG.md $$(find incolume* -name version.txt)  #sem tag
 
+.PHONY: preminor
+preminor:    ## Generate a prebuild, new preminor commit version, default semver
+	@v=$$(poetry version preminor); poetry run pytest tests/ && make changelog && git commit -m "$$v" pyproject.toml CHANGELOG.md $$(find incolume* -name version.txt)  #sem tag
+
 .PHONY: prerelease
 prerelease:    ## Generate a prebuild, new prerelease commit version, default semver
 	@v=$$(poetry version prerelease); poetry run pytest tests/ && make changelog && git commit -m "$$v" pyproject.toml CHANGELOG.md $$(find incolume* -name version.txt)  #sem tag
