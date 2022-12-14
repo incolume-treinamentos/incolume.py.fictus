@@ -8,6 +8,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 This file was automatically generated for [incolumepy.utils](https://gitlab.com/development-incolume/incolumepy.utils/-/tree/2.5.4)
 
 ---
+## [0.9.0]	2022-12-14:
+	Added: Politica de commit; Makefile isort
 ## [0.8.0]	2022-12-10:
 	Added: Makefile changelog; Makefile patch; Makefile prerelease; Complexidade ciclomática fixada em 5 iterações; Acrescentada Politicas via githooks; Changed: refinamento de configuração local para poetry.toml; Estilização de mensagens githooks; Configuração PYTHONPATH para pylint. Obrigatório no VSCode/Windows
 ## [0.7.0]	2022-11-29:
@@ -33,3 +35,4 @@ This file was automatically generated for [incolumepy.utils](https://gitlab.com/
 [0.6.0]: https://github.com/incolumepy/incolume.py.fictus/compare/0.5.0...0.6.0
 [0.7.0]: https://github.com/incolumepy/incolume.py.fictus/compare/0.6.0...0.7.0
 [0.8.0]: https://github.com/incolumepy/incolume.py.fictus/compare/0.7.0...0.8.0
+[0.9.0]: https://github.com/incolumepy/incolume.py.fictus/compare/0.8.0...0.9.0
